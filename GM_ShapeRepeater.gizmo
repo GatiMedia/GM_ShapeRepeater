@@ -1,0 +1,100 @@
+Group {
+ name GM_ShapeRepeater
+ selected true
+ xpos 3260
+ ypos 878
+ addUserKnob {20 User}
+ addUserKnob {26 shape l "<b>S H A P E"}
+ addUserKnob {41 position l Position T Flare.position}
+ addUserKnob {41 size_mult l "Size " T Flare.size_mult}
+ addUserKnob {41 anamorph l Anamorph T Flare.anamorph}
+ addUserKnob {41 corners l Points T Flare.corners}
+ addUserKnob {41 flattening l "Edge Flattening" T Flare.flattening}
+ addUserKnob {41 sharpness l "Corner Sharpness" T Flare.sharpness}
+ addUserKnob {41 corners_angle l Angle T Flare.corners_angle}
+ addUserKnob {41 falloff l Falloff T proxy1.falloff}
+ addUserKnob {41 multiply l Color T Grade.multiply}
+ addUserKnob {26 rep1 l "<b>R E P E A T E R 1"}
+ addUserKnob {41 copy1 l Copies1 T PROXY.copy1}
+ addUserKnob {26 rep2 l "<b>R E P E A T E R 2"}
+ addUserKnob {41 copy2 l Copies2 T PROXY.copy2}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {22 test l Test T "import nuke\n\nthisNode = nuke.thisGroup()\n\niRepeats1 = thisNode.knob(\"copy1\").getValue()\n\niRepeats = int(iRepeats1)\n\nbfirstLoop = True\n\nnDot = nuke.nodes.Dot()\n\nfor i in range(iRepeats):\n    nTrans = nuke.nodes.Transform(name = \"t\" + str(i), translate = \"20 20\")\n    nMerge = nuke.nodes.Merge2(name = \"m\" + str(i))\n    nMerge.setInput(1, nTrans)\n    \n    if bfirstLoop:\n        bfirstLoop = False\n        nTrans.setInput(0, nDot)\n        nMerge.setInput(0, nDot)\n    else:\n        nTrans.setInput(0, nPrevMerge)\n        nMerge.setInput(0, nPrevMerge)\n        \n    nPrevMerge = nMerge\n" +STARTLINE}
+}
+ NoOp {
+  inputs 0
+  name proxy1
+  xpos 620
+  ypos 254
+  addUserKnob {20 User}
+  addUserKnob {7 falloff l Falloff R 0 100}
+  falloff 10
+ }
+ Input {
+  inputs 0
+  name Input
+  xpos 510
+  ypos 134
+ }
+ Remove {
+  name Remove
+  xpos 510
+  ypos 176
+ }
+ Flare {
+  position {643 478}
+  radius {{100} {radius.0} {100+parent.proxy1.falloff}}
+  ring_color {1 1 1}
+  inner_color {1 1 1}
+  outer_falloff {1 1 1}
+  inner_falloff {1 1 1}
+  brightness {1 1 1}
+  vis_out 1
+  corners 6
+  flattening 1
+  sharpness 1
+  corners_angle 0.1
+  mult_offset 0
+  name Flare
+  xpos 510
+  ypos 254
+ }
+ Shuffle {
+  alpha red
+  name Shuffle1
+  xpos 510
+  ypos 326
+ }
+ Clamp {
+  name Clamp
+  xpos 510
+  ypos 392
+ }
+ Grade {
+  name Grade
+  xpos 510
+  ypos 470
+ }
+ Transform {
+  center {{parent.Flare.position} {parent.Flare.position}}
+  shutteroffset centred
+  name Transform1
+  xpos 510
+  ypos 542
+ }
+ Output {
+  name Output1
+  xpos 510
+  ypos 662
+ }
+ NoOp {
+  inputs 0
+  name PROXY
+  xpos 840
+  ypos 254
+  addUserKnob {20 User}
+  addUserKnob {3 copy1 l Copies1}
+  copy1 5
+  addUserKnob {3 copy2 l Copies2}
+ }
+end_group
