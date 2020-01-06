@@ -46,3 +46,40 @@ for i in range(iRepeats):
         nMerge.setInput(0, nPrevMerge)
 
     nPrevMerge = nMerge
+    
+#####
+
+
+import nuke
+
+thisNode = nuke.thisGroup()
+
+thisNode.begin()
+    
+copy1 = nuke.toNode('PROXY_MAIN').knob('copy1').getvalue()
+
+copy2 = nuke.toNode('PROXY_MAIN').knob('copy2').getvalue()
+
+cDot = nuke.nodes.Dot()
+
+cFirstLoop = True
+
+for i in range(copy1):
+    cTrans = nuke.nodes.Transform(name = "t" + str(i))
+    cMerge = nuke.nodes.Merge2(name = "m" + str(i))
+    cMerge.setInput(1,cTrans)
+
+    if cFirstLoop:
+        cFirstLoop = False
+        cTrans.setInput(0, cDot)
+        cMerge.setInput(0, cDot)
+    else:
+        cTrans.setInput(0, cprevMerge)
+        cMerge.setInput(0, cprevMerge)
+
+    cprevMerge = cMerge
+
+
+
+
+
