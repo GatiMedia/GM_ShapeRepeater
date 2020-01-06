@@ -1,8 +1,8 @@
 Group {
  name GM_ShapeRepeater
  selected true
- xpos 3260
- ypos 878
+ xpos 4250
+ ypos 1359
  addUserKnob {20 User}
  addUserKnob {26 shape l "<b>S H A P E"}
  addUserKnob {41 position l Position T Flare.position}
@@ -15,86 +15,344 @@ Group {
  addUserKnob {41 falloff l Falloff T proxy1.falloff}
  addUserKnob {41 multiply l Color T Grade.multiply}
  addUserKnob {26 rep1 l "<b>R E P E A T E R 1"}
- addUserKnob {41 copy1 l Copies1 T PROXY.copy1}
+ addUserKnob {41 copy1 l Copies1 T PROXY_MAIN.copy1}
  addUserKnob {26 rep2 l "<b>R E P E A T E R 2"}
- addUserKnob {41 copy2 l Copies2 T PROXY.copy2}
- addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 copy2 l Copies2 T PROXY_MAIN.copy2}
+ addUserKnob {26 ""}
  addUserKnob {22 test l Test T "import nuke\n\nthisNode = nuke.thisGroup()\n\niRepeats1 = thisNode.knob(\"copy1\").getValue()\n\niRepeats = int(iRepeats1)\n\nbfirstLoop = True\n\nnDot = nuke.nodes.Dot()\n\nfor i in range(iRepeats):\n    nTrans = nuke.nodes.Transform(name = \"t\" + str(i), translate = \"20 20\")\n    nMerge = nuke.nodes.Merge2(name = \"m\" + str(i))\n    nMerge.setInput(1, nTrans)\n    \n    if bfirstLoop:\n        bfirstLoop = False\n        nTrans.setInput(0, nDot)\n        nMerge.setInput(0, nDot)\n    else:\n        nTrans.setInput(0, nPrevMerge)\n        nMerge.setInput(0, nPrevMerge)\n        \n    nPrevMerge = nMerge\n" +STARTLINE}
 }
  NoOp {
   inputs 0
   name proxy1
   xpos 620
-  ypos 254
+  ypos 255
   addUserKnob {20 User}
   addUserKnob {7 falloff l Falloff R 0 100}
-  falloff 10
+  falloff 5
+ }
+ NoOp {
+  inputs 0
+  name PROXY_MAIN
+  xpos 840
+  ypos 255
+  addUserKnob {20 User}
+  addUserKnob {3 copy1 l Copies1}
+  copy1 5
+  addUserKnob {3 copy2 l Copies2}
  }
  Input {
   inputs 0
   name Input
   xpos 510
-  ypos 134
+  ypos 135
  }
  Remove {
   name Remove
   xpos 510
-  ypos 176
+  ypos 177
  }
  Flare {
-  position {643 478}
-  radius {{100} {radius.0} {100+parent.proxy1.falloff}}
+  position {957 512}
+  radius {100 {radius.0} {100+parent.proxy1.falloff}}
   ring_color {1 1 1}
   inner_color {1 1 1}
   outer_falloff {1 1 1}
   inner_falloff {1 1 1}
   brightness {1 1 1}
   vis_out 1
-  corners 6
-  flattening 1
+  flattening 3
   sharpness 1
   corners_angle 0.1
   mult_offset 0
   name Flare
   xpos 510
-  ypos 254
+  ypos 255
  }
  Shuffle {
   alpha red
   name Shuffle1
   xpos 510
-  ypos 326
+  ypos 327
  }
  Clamp {
   name Clamp
   xpos 510
-  ypos 392
+  ypos 393
  }
  Grade {
   name Grade
   xpos 510
-  ypos 470
+  ypos 471
  }
  Transform {
   center {{parent.Flare.position} {parent.Flare.position}}
   shutteroffset centred
   name Transform1
   xpos 510
-  ypos 542
+  ypos 543
+ }
+ Transform {
+  translate {280 0}
+  rotate {{curve x1018 80 s0 v1.035461426 x1072 -100 s-0.5 t0 u2.349953413}}
+  scale {{curve x1018 0.72 x1072 0.5}}
+  center {{"parent.Flare.position - translate.x"} {"parent.Flare.position- translate.y"}}
+  shutteroffset centred
+  name Trans_COPY1
+  selected true
+  xpos 950
+  ypos 543
+ }
+set N5669850 [stack 0]
+ Transform {
+  translate {{parent.Trans_COPY1.translate} {parent.Trans_COPY1.translate}}
+  rotate {{parent.Trans_COPY1.rotate}}
+  scale {{parent.Trans_COPY1.scale}}
+  center {{parent.Trans_COPY1.center} {parent.Trans_COPY1.center}}
+  shutteroffset centred
+  name Transform3
+  xpos 840
+  ypos 615
+ }
+set N22292fd0 [stack 0]
+ Transform {
+  translate {{parent.Trans_COPY1.translate} {parent.Trans_COPY1.translate}}
+  rotate {{parent.Trans_COPY1.rotate}}
+  scale {{parent.Trans_COPY1.scale}}
+  center {{parent.Trans_COPY1.center} {parent.Trans_COPY1.center}}
+  shutteroffset centred
+  name Transform12
+  xpos 840
+  ypos 759
+ }
+set N24f16480 [stack 0]
+ Transform {
+  translate {{parent.Trans_COPY1.translate} {parent.Trans_COPY1.translate}}
+  rotate {{parent.Trans_COPY1.rotate}}
+  scale {{parent.Trans_COPY1.scale}}
+  center {{parent.Trans_COPY1.center} {parent.Trans_COPY1.center}}
+  shutteroffset centred
+  name Transform13
+  xpos 840
+  ypos 903
+ }
+set N22198970 [stack 0]
+ Transform {
+  translate {{parent.Trans_COPY1.translate} {parent.Trans_COPY1.translate}}
+  rotate {{parent.Trans_COPY1.rotate}}
+  scale {{parent.Trans_COPY1.scale}}
+  center {{parent.Trans_COPY1.center} {parent.Trans_COPY1.center}}
+  shutteroffset centred
+  name Transform14
+  xpos 840
+  ypos 1047
+ }
+set N21690b50 [stack 0]
+ Transform {
+  translate {{parent.Trans_COPY1.translate} {parent.Trans_COPY1.translate}}
+  rotate {{parent.Trans_COPY1.rotate}}
+  scale {{parent.Trans_COPY1.scale}}
+  center {{parent.Trans_COPY1.center} {parent.Trans_COPY1.center}}
+  shutteroffset centred
+  name Transform15
+  xpos 840
+  ypos 1191
+ }
+set N24bf9ea0 [stack 0]
+ Transform {
+  translate {{parent.Trans_COPY1.translate} {parent.Trans_COPY1.translate}}
+  rotate {{parent.Trans_COPY1.rotate}}
+  scale {{parent.Trans_COPY1.scale}}
+  center {{parent.Trans_COPY1.center} {parent.Trans_COPY1.center}}
+  shutteroffset centred
+  name Transform16
+  xpos 840
+  ypos 1311
+ }
+set N24c1ef50 [stack 0]
+ Transform {
+  translate {{parent.Trans_COPY1.translate} {parent.Trans_COPY1.translate}}
+  rotate {{parent.Trans_COPY1.rotate}}
+  scale {{parent.Trans_COPY1.scale}}
+  center {{parent.Trans_COPY1.center} {parent.Trans_COPY1.center}}
+  shutteroffset centred
+  name Transform17
+  xpos 840
+  ypos 1431
+ }
+set N223bf270 [stack 0]
+ Transform {
+  translate {{parent.Trans_COPY1.translate} {parent.Trans_COPY1.translate}}
+  rotate {{parent.Trans_COPY1.rotate}}
+  scale {{parent.Trans_COPY1.scale}}
+  center {{parent.Trans_COPY1.center} {parent.Trans_COPY1.center}}
+  shutteroffset centred
+  name Transform18
+  xpos 840
+  ypos 1551
+ }
+push $N223bf270
+push $N24c1ef50
+push $N24bf9ea0
+push $N21690b50
+push $N22198970
+push $N24f16480
+push $N22292fd0
+push $N5669850
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos 950
+  ypos 663
+ }
+ Merge2 {
+  inputs 2
+  name Merge3
+  xpos 950
+  ypos 807
+ }
+ Merge2 {
+  inputs 2
+  name Merge11
+  xpos 950
+  ypos 951
+ }
+ Merge2 {
+  inputs 2
+  name Merge12
+  xpos 950
+  ypos 1095
+ }
+ Merge2 {
+  inputs 2
+  name Merge13
+  xpos 950
+  ypos 1239
+ }
+ Merge2 {
+  inputs 2
+  name Merge14
+  xpos 950
+  ypos 1359
+ }
+ Merge2 {
+  inputs 2
+  name Merge15
+  xpos 950
+  ypos 1479
+ }
+ Merge2 {
+  inputs 2
+  name Merge16
+  xpos 950
+  ypos 1599
+ }
+ Dot {
+  name Dot1
+  tile_color 0x949494ff
+  note_font_size 22
+  note_font_color 0xffffffff
+  xpos 544
+  ypos 1962
+ }
+ Dot {
+  name Dot2
+  tile_color 0x949494ff
+  note_font_size 22
+  note_font_color 0xffffffff
+  xpos 104
+  ypos 1962
+ }
+set N9b104630 [stack 0]
+ Transform {
+  rotate -60
+  center {{parent.Flare.position} {parent.Flare.position}}
+  shutteroffset centred
+  name Trans_COPY2
+  xpos -40
+  ypos 2055
+ }
+set N21a6a1e0 [stack 0]
+ Transform {
+  translate {{parent.Trans_COPY2.translate} {parent.Trans_COPY2.translate}}
+  rotate {{parent.Trans_COPY2.rotate}}
+  scale {{parent.Trans_COPY2.scale}}
+  center {{parent.Trans_COPY2.center} {parent.Trans_COPY2.center}}
+  shutteroffset centred
+  name Transform2
+  xpos -40
+  ypos 2151
+ }
+set N133a16d0 [stack 0]
+ Transform {
+  translate {{parent.Trans_COPY2.translate} {parent.Trans_COPY2.translate}}
+  rotate {{parent.Trans_COPY2.rotate}}
+  scale {{parent.Trans_COPY2.scale}}
+  center {{parent.Trans_COPY2.center} {parent.Trans_COPY2.center}}
+  shutteroffset centred
+  name Transform4
+  xpos -40
+  ypos 2247
+ }
+set Nf74eda0 [stack 0]
+ Transform {
+  translate {{parent.Trans_COPY2.translate} {parent.Trans_COPY2.translate}}
+  rotate {{parent.Trans_COPY2.rotate}}
+  scale {{parent.Trans_COPY2.scale}}
+  center {{parent.Trans_COPY2.center} {parent.Trans_COPY2.center}}
+  shutteroffset centred
+  name Transform5
+  xpos -40
+  ypos 2343
+ }
+set N289dbd00 [stack 0]
+ Transform {
+  translate {{parent.Trans_COPY2.translate} {parent.Trans_COPY2.translate}}
+  rotate {{parent.Trans_COPY2.rotate}}
+  scale {{parent.Trans_COPY2.scale}}
+  center {{parent.Trans_COPY2.center} {parent.Trans_COPY2.center}}
+  shutteroffset centred
+  name Transform6
+  xpos -40
+  ypos 2439
+ }
+push $N289dbd00
+push $Nf74eda0
+push $N133a16d0
+push $N21a6a1e0
+push $N9b104630
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 70
+  ypos 2055
+ }
+ Merge2 {
+  inputs 2
+  name Merge4
+  xpos 70
+  ypos 2151
+ }
+ Merge2 {
+  inputs 2
+  name Merge5
+  xpos 70
+  ypos 2247
+ }
+ Merge2 {
+  inputs 2
+  name Merge6
+  xpos 70
+  ypos 2343
+ }
+ Merge2 {
+  inputs 2
+  name Merge7
+  xpos 70
+  ypos 2439
  }
  Output {
   name Output1
   xpos 510
-  ypos 662
- }
- NoOp {
-  inputs 0
-  name PROXY
-  xpos 840
-  ypos 254
-  addUserKnob {20 User}
-  addUserKnob {3 copy1 l Copies1}
-  copy1 5
-  addUserKnob {3 copy2 l Copies2}
+  ypos 2679
  }
 end_group
