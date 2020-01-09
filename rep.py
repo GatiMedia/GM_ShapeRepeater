@@ -148,6 +148,31 @@ p.setInput(0, w)
 ####
 
 
+iRepeats = 5
+bfirstLoop = True
+
+nDot = nuke.nodes.Dot()
+w = nuke.toNode('Transform24')
+b = nuke.toNode('Blur2')
+nDot.setInput(0, w)
+
+for i in range(iRepeats):
+    nTrans = nuke.nodes.Transform(name = "t" + str(i))
+    nMerge = nuke.nodes.Merge2(name = "m" + str(i))
+    nMerge.setInput(1, nTrans)
+
+    
+    if bfirstLoop:
+        bfirstLoop = False
+        nTrans.setInput(0, nDot)
+        nMerge.setInput(0, nDot)
+    else:
+        nTrans.setInput(0, nPrevMerge)
+        nMerge.setInput(0, nPrevMerge)
+        
+    nPrevMerge = nMerge
+
+p = nuke.toNode(
 
 
 
