@@ -147,7 +147,7 @@ p.setInput(0, w)
 
 ####
 
-iRepeats = 10
+iRepeats = 20
 bfirstLoop = True
 
 # Main Transform for Copy1
@@ -174,8 +174,8 @@ for i in range(iRepeats):
     CTrans.knob('invert_matrix').setExpression('Trans_COPY1.invert_matrix')
     CTrans.knob('filter').setExpression('Trans_COPY1.filter')
     nMerge = nuke.nodes.Merge2(name = "m" + str(i))
+    nMerge.knob('also_merge').setValue('all')
     nMerge.setInput(1, CTrans)
-
     
     if bfirstLoop:
         bfirstLoop = False
@@ -184,7 +184,7 @@ for i in range(iRepeats):
     else:
         CTrans.setInput(0, nPrevMerge)
         nMerge.setInput(0, nPrevMerge)
-        
+
     nPrevMerge = nMerge
 
 MNum = int(iRepeats) - 1
@@ -192,6 +192,8 @@ MNum = int(iRepeats) - 1
 p = nuke.toNode("m" + str(MNum))
 
 b.setInput(0, p)
+
+
 
 
 
