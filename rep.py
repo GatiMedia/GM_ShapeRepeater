@@ -147,13 +147,12 @@ p.setInput(0, w)
 
 ####
 
-
 iRepeats = 5
 bfirstLoop = True
 
 nDot = nuke.nodes.Dot()
-w = nuke.toNode('Transform24')
-b = nuke.toNode('Blur2')
+w = nuke.toNode('Transform4')
+b = nuke.toNode('Blur4')
 nDot.setInput(0, w)
 
 for i in range(iRepeats):
@@ -172,9 +171,11 @@ for i in range(iRepeats):
         
     nPrevMerge = nMerge
 
-p = nuke.toNode(
+MNum = int(iRepeats) - 1
 
+p = nuke.toNode("m" + str(MNum))
 
+b.setInput(0, p)
 
 
 
