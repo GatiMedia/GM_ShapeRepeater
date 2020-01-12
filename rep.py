@@ -194,23 +194,68 @@ p = nuke.toNode("m" + str(MNum))
 b.setInput(0, p)
 
 
+####
 
 
+nuke.toNode('PROXY_MAIN').knob('knobChanged').setValue('
+n = nuke.thisNode()
+k = nuke.thisKnob()
+if k.name()=="copy1":
+    C = nuke.toNode('PROXY_MAIN').knob('copy1').getValue()
+    
+    iRepeats = int(C)
+    bfirstLoop = True
+    
+    # Main Transform for Copy1
+    w = nuke.toNode('Trans_COPY1')
+    
+    # Last Merge connected to this
+    b = nuke.toNode('Blur1')
+    
+    # Dot would be connected to this and allows toggle between original and modified source 
+    s = nuke.toNode('Switch1')
+    
+    nDot = nuke.nodes.Dot()
+    nDot.setInput(0, s)
+    
+    for i in range(iRepeats):
+        CTrans = nuke.nodes.Transform(name = "t" + str(i))
+        CTrans.knob('translate').setExpression('Trans_COPY1.translate')
+        CTrans.knob('rotate').setExpression('Trans_COPY1.rotate')
+        CTrans.knob('scale').setExpression('Trans_COPY1.scale')
+        CTrans.knob('skewX').setExpression('Trans_COPY1.skewX')
+        CTrans.knob('skewY').setExpression('Trans_COPY1.skewY')
+        CTrans.knob('skew_order').setExpression('Trans_COPY1.skew_order')
+        CTrans.knob('center').setExpression('Trans_COPY1.center')
+        CTrans.knob('invert_matrix').setExpression('Trans_COPY1.invert_matrix')
+        CTrans.knob('filter').setExpression('Trans_COPY1.filter')
+        nMerge = nuke.nodes.Merge2(name = "m" + str(i))
+        nMerge.knob('also_merge').setValue('all')
+        nMerge.setInput(1, CTrans)
+        
+        if bfirstLoop:
+            bfirstLoop = False
+            CTrans.setInput(0, nDot)
+            nMerge.setInput(0, nDot)
+        else:
+            CTrans.setInput(0, nPrevMerge)
+            nMerge.setInput(0, nPrevMerge)
+    
+        nPrevMerge = nMerge
+    
+    MNum = int(iRepeats) - 1
+    
+    p = nuke.toNode("m" + str(MNum))
+    
+    b.setInput(0, p)
+else:
+    pass')
 
 
+#####
 
 
-
-
-
-
-
-
-
-
-
-
-
+nuke.toNode('PROXY_MAIN').knob('knobChanged').setValue('n = nuke.thisNode()\nk = nuke.thisKnob()\nif k.name()=="copy1":\n C = nuke.toNode('PROXY_MAIN').knob('copy1').getValue()\n iRepeats = int(C)\n bfirstLoop = True\n # Main Transform for Copy1\n w = nuke.toNode('Trans_COPY1')\n # Last Merge connected to this\n b = nuke.toNode('Blur1')\n # Dot would be connected to this and allows toggle between original and modified source \n s = nuke.toNode('Switch1')\n nDot = nuke.nodes.Dot()\n nDot.setInput(0, s)\n for i in range(iRepeats):\n  CTrans = nuke.nodes.Transform(name = "t" + str(i))\n  CTrans.knob('translate').setExpression('Trans_COPY1.translate')\n  CTrans.knob('rotate').setExpression('Trans_COPY1.rotate')\n  CTrans.knob('scale').setExpression('Trans_COPY1.scale')\n  CTrans.knob('skewX').setExpression('Trans_COPY1.skewX')\n  CTrans.knob('skewY').setExpression('Trans_COPY1.skewY')\n  CTrans.knob('skew_order').setExpression('Trans_COPY1.skew_order')\n  CTrans.knob('center').setExpression('Trans_COPY1.center')\n  CTrans.knob('invert_matrix').setExpression('Trans_COPY1.invert_matrix')\n  CTrans.knob('filter').setExpression('Trans_COPY1.filter')\n  nMerge = nuke.nodes.Merge2(name = "m" + str(i))\n  nMerge.knob('also_merge').setValue('all')\n  nMerge.setInput(1, CTrans)\n  if bfirstLoop:\n   bfirstLoop = False\n   CTrans.setInput(0, nDot)\n   nMerge.setInput(0, nDot)\n  else:\n   CTrans.setInput(0, nPrevMerge)\n   nMerge.setInput(0, nPrevMerge)\n  nPrevMerge = nMerge\n MNum = int(iRepeats) - 1\n p = nuke.toNode("m" + str(MNum))\n b.setInput(0, p)\nelif:\n pass')
 
 
 
