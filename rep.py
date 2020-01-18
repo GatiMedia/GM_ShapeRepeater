@@ -306,10 +306,7 @@ if kc.name() in ["copy1"]:
 
     o.setInput(0, i)')
 
-#################
-                                                           
-                                                           
-                                                           
+#####Code for PROXY_MAIN1 knobChanged
 
 Rep = nuke.toNode('GM_ShapeRepeater3')
 
@@ -327,7 +324,7 @@ if kc.name() in ["copy1"]:
 
     
     iRep = m.knob('copy1').getValue()
-    iRepeats = int(iRep)
+    iRepeats = int(iRep)-1
     bfirstLoop = True
     
     # Main Transform for Copy1
@@ -342,41 +339,45 @@ if kc.name() in ["copy1"]:
     nDot = nuke.nodes.Dot()
     nDot.setInput(0, s)
     
-    for i in range(iRepeats):
-        CTrans = nuke.nodes.Transform(name = "t" + str(i))
-        CTrans.knob('translate').setExpression('Trans_COPY1.translate')
-        CTrans.knob('rotate').setExpression('Trans_COPY1.rotate')
-        CTrans.knob('scale').setExpression('Trans_COPY1.scale')
-        CTrans.knob('skewX').setExpression('Trans_COPY1.skewX')
-        CTrans.knob('skewY').setExpression('Trans_COPY1.skewY')
-        CTrans.knob('skew_order').setExpression('Trans_COPY1.skew_order')
-        CTrans.knob('center').setExpression('Trans_COPY1.center')
-        CTrans.knob('invert_matrix').setExpression('Trans_COPY1.invert_matrix')
-        CTrans.knob('filter').setExpression('Trans_COPY1.filter')
-        nMerge = nuke.nodes.Merge2(name = "m" + str(i))
-        nMerge.knob('also_merge').setValue('all')
-        nMerge.setInput(1, CTrans)
+    if (iRepeats+1) >= 2: 
+    
+        for i in range(iRepeats):
+            CTrans = nuke.nodes.Transform(name = "t" + str(i))
+            CTrans.knob('translate').setExpression('Trans_COPY1.translate')
+            CTrans.knob('rotate').setExpression('Trans_COPY1.rotate')
+            CTrans.knob('scale').setExpression('Trans_COPY1.scale')
+            CTrans.knob('skewX').setExpression('Trans_COPY1.skewX')
+            CTrans.knob('skewY').setExpression('Trans_COPY1.skewY')
+            CTrans.knob('skew_order').setExpression('Trans_COPY1.skew_order')
+            CTrans.knob('center').setExpression('Trans_COPY1.center')
+            CTrans.knob('invert_matrix').setExpression('Trans_COPY1.invert_matrix')
+            CTrans.knob('filter').setExpression('Trans_COPY1.filter')
+            nMerge = nuke.nodes.Merge2(name = "m" + str(i))
+            nMerge.knob('also_merge').setValue('all')
+            nMerge.setInput(1, CTrans)
+            
+            if bfirstLoop:
+                bfirstLoop = False
+                CTrans.setInput(0, nDot)
+                nMerge.setInput(0, nDot)
+            else:
+                CTrans.setInput(0, nPrevMerge)
+                nMerge.setInput(0, nPrevMerge)
         
-        if bfirstLoop:
-            bfirstLoop = False
-            CTrans.setInput(0, nDot)
-            nMerge.setInput(0, nDot)
-        else:
-            CTrans.setInput(0, nPrevMerge)
-            nMerge.setInput(0, nPrevMerge)
-    
-        nPrevMerge = nMerge
-    
-    MNum = int(iRepeats) - 1
-    
-    p = nuke.toNode("m" + str(MNum))
-    
-    b.setInput(0, p)
+            nPrevMerge = nMerge
+        
+        MNum = int(iRepeats) - 1
+        
+        p = nuke.toNode("m" + str(MNum))
+        
+        b.setInput(0, p)
+    else:
+        b.setInput(0, nDot)
+
 """)
 
 
 Rep.end()
-
 
 
 
