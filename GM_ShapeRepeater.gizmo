@@ -29,26 +29,28 @@ Group {
  addUserKnob {41 filter1 T Trans_COPY1_proxy.filter1}
  addUserKnob {26 "" +STARTLINE}
 }
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0xff
+  label "<center><font color=red>DON`T TOUCH\nstatic"
+  note_font "Verdana Bold"
+  note_font_size 42
+  xpos 738
+  ypos 63
+  bdwidth 285
+  bdheight 305
+ }
  NoOp {
   inputs 0
   name PROXY_MAIN1
-  knobChanged "\nm = nuke.thisNode()\nkc = nuke.thisKnob()\n\nif kc.name() in \[\"copy1\"]:\n\n    for n in nuke.allNodes():\n        if \"static\" not in n\['label'].getValue():\n            nuke.delete(n)\n\n    \n    iRep = m.knob('copy1').getValue()\n    iRepeats = int(iRep)\n    bfirstLoop = True\n    \n    # Main Transform for Copy1\n    w = nuke.toNode('Trans_COPY1')\n    \n    # Last Merge connected to this\n    b = nuke.toNode('COPIES1_end')\n    \n    # Dot would be connected to this and allows toggle between original and modified source \n    s = nuke.toNode('Switch1')\n    \n    nDot = nuke.nodes.Dot()\n    nDot.setInput(0, s)\n    \n    for i in range(iRepeats):\n        CTrans = nuke.nodes.Transform(name = \"t\" + str(i))\n        CTrans.knob('translate').setExpression('Trans_COPY1.translate')\n        CTrans.knob('rotate').setExpression('Trans_COPY1.rotate')\n        CTrans.knob('scale').setExpression('Trans_COPY1.scale')\n        CTrans.knob('skewX').setExpression('Trans_COPY1.skewX')\n        CTrans.knob('skewY').setExpression('Trans_COPY1.skewY')\n        CTrans.knob('skew_order').setExpression('Trans_COPY1.skew_order')\n        CTrans.knob('center').setExpression('Trans_COPY1.center')\n        CTrans.knob('invert_matrix').setExpression('Trans_COPY1.invert_matrix')\n        CTrans.knob('filter').setExpression('Trans_COPY1.filter')\n        nMerge = nuke.nodes.Merge2(name = \"m\" + str(i))\n        nMerge.knob('also_merge').setValue('all')\n        nMerge.setInput(1, CTrans)\n        \n        if bfirstLoop:\n            bfirstLoop = False\n            CTrans.setInput(0, nDot)\n            nMerge.setInput(0, nDot)\n        else:\n            CTrans.setInput(0, nPrevMerge)\n            nMerge.setInput(0, nPrevMerge)\n    \n        nPrevMerge = nMerge\n    \n    MNum = int(iRepeats) - 1\n    \n    p = nuke.toNode(\"m\" + str(MNum))\n    \n    b.setInput(0, p)\n"
+  knobChanged "\nm = nuke.thisNode()\nkc = nuke.thisKnob()\n\nif kc.name() in \[\"copy1\"]:\n\n    for n in nuke.allNodes():\n        if \"static\" not in n\['label'].getValue():\n            nuke.delete(n)\n\n    \n    iRep = m.knob('copy1').getValue()\n    iRepeats = int(iRep)-1\n    bfirstLoop = True\n    \n    # Main Transform for Copy1\n    w = nuke.toNode('Trans_COPY1')\n    \n    # Last Merge connected to this\n    b = nuke.toNode('COPIES1_end')\n    \n    # Dot would be connected to this and allows toggle between original and modified source \n    s = nuke.toNode('Switch1')\n    \n    nDot = nuke.nodes.Dot()\n    nDot.setInput(0, s)\n    \n    if (iRepeats+1) >= 2: \n    \n        for i in range(iRepeats):\n            CTrans = nuke.nodes.Transform(name = \"t\" + str(i))\n            CTrans.knob('translate').setExpression('Trans_COPY1.translate')\n            CTrans.knob('rotate').setExpression('Trans_COPY1.rotate')\n            CTrans.knob('scale').setExpression('Trans_COPY1.scale')\n            CTrans.knob('skewX').setExpression('Trans_COPY1.skewX')\n            CTrans.knob('skewY').setExpression('Trans_COPY1.skewY')\n            CTrans.knob('skew_order').setExpression('Trans_COPY1.skew_order')\n            CTrans.knob('center').setExpression('Trans_COPY1.center')\n            CTrans.knob('invert_matrix').setExpression('Trans_COPY1.invert_matrix')\n            CTrans.knob('filter').setExpression('Trans_COPY1.filter')\n            nMerge = nuke.nodes.Merge2(name = \"m\" + str(i))\n            nMerge.knob('also_merge').setValue('all')\n            nMerge.setInput(1, CTrans)\n            \n            if bfirstLoop:\n                bfirstLoop = False\n                CTrans.setInput(0, nDot)\n                nMerge.setInput(0, nDot)\n            else:\n                CTrans.setInput(0, nPrevMerge)\n                nMerge.setInput(0, nPrevMerge)\n        \n            nPrevMerge = nMerge\n        \n        MNum = int(iRepeats) - 1\n        \n        p = nuke.toNode(\"m\" + str(MNum))\n        \n        b.setInput(0, p)\n    else:\n        b.setInput(0, nDot)\n\n"
   label static
   xpos 840
   ypos 248
   addUserKnob {20 User}
   addUserKnob {3 copy1 l Copies1}
   copy1 1
- }
- NoOp {
-  inputs 0
-  name PROXY_MAIN2
-  label static
-  xpos 1060
-  ypos 248
-  addUserKnob {20 User}
-  addUserKnob {3 copy2 l Copies2}
-  copy2 5
  }
  NoOp {
   inputs 0
@@ -64,11 +66,11 @@ Group {
   inputs 0
   name Trans_COPY1_proxy
   label static
-  xpos 241
+  xpos 290
   ypos 632
   addUserKnob {20 User}
   addUserKnob {12 translate1}
-  translate1 {80 0}
+  translate1 {140 0}
   addUserKnob {7 rotate1 R -180 180}
   rotate1 4
   addUserKnob {14 scale1 R 0 100}
@@ -96,7 +98,7 @@ Group {
   ypos 169
  }
  Flare {
-  position {657 812}
+  position {926 394}
   radius {100 {radius.0} {100+parent.proxy1.falloff}}
   size_mult 0.5
   ring_color {1 1 1}
@@ -157,46 +159,23 @@ push $N57245500
   name Switch1
   label static
   xpos 510
-  ypos 728
+  ypos 632
  }
  Dot {
   name Dot1
   xpos 544
-  ypos 766
- }
-set Nbe9ba380 [stack 0]
- Transform {
-  translate {{Trans_COPY1.translate} {Trans_COPY1.translate}}
-  rotate {{Trans_COPY1.rotate}}
-  scale {{Trans_COPY1.scale}}
-  skewX {{Trans_COPY1.skewX}}
-  skewY {{Trans_COPY1.skewY}}
-  skew_order {{Trans_COPY1.skew_order}}
-  center {{Trans_COPY1.center} {Trans_COPY1.center}}
-  invert_matrix {{Trans_COPY1.invert_matrix}}
-  filter {{Trans_COPY1.filter}}
-  name t0
-  xpos 510
-  ypos 784
- }
-push $Nbe9ba380
- Merge2 {
-  inputs 2
-  also_merge all
-  name m0
-  xpos 620
-  ypos 784
+  ypos 670
  }
  NoOp {
   name COPIES1_end
   label static
+  selected true
   xpos 510
   ypos 1952
  }
  Output {
   name Output1
   label static
-  selected true
   xpos 510
   ypos 2096
  }
