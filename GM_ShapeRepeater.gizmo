@@ -4,7 +4,6 @@ Group {
  ypos -130
  addUserKnob {20 User}
  addUserKnob {4 output l Output M {"Pattern Only" "Pattern Over Image"}}
- output "Pattern Over Image"
  addUserKnob {26 shape l "<b>S H A P E"}
  addUserKnob {41 position l Position T Flare.position}
  addUserKnob {22 set_center_pos l "Set Center" -STARTLINE T "this_width = nuke.thisGroup().width()\n\nthis_height = nuke.thisGroup().height()\n\nnewWidth = this_width/2\nnewHeight = this_height/2\n\nnuke.thisGroup().knob(\"position\").setValue(\[newWidth, newHeight])"}
@@ -98,11 +97,9 @@ Group {
   ypos 632
   addUserKnob {20 User}
   addUserKnob {12 translate1}
-  translate1 {100 0}
   addUserKnob {7 rotate1 R -180 180}
-  rotate1 50
   addUserKnob {14 scale1 R 0 100}
-  scale1 1.2
+  scale1 1
   addUserKnob {7 skewX1 R -1 1}
   addUserKnob {7 skewY1 R -1 1}
   addUserKnob {4 skeworder1 M {XY YX}}
@@ -111,9 +108,9 @@ Group {
   addUserKnob {4 filter1 M {Impulse Cubic Keys Simon Rifman Mitchell Parzen Notsch Lanczos4 Lanczos6 Sinc4}}
   filter1 Notsch
   addUserKnob {7 motionblur1 R 0 4}
-  motionblur1 1.1
+  motionblur1 1
   addUserKnob {7 shutter1 R 0 2}
-  shutter1 0.4
+  shutter1 0.5
  }
  NoOp {
   inputs 0
@@ -124,7 +121,7 @@ Group {
   ypos 248
   addUserKnob {20 User}
   addUserKnob {3 copy1 l Copies1}
-  copy1 8
+  copy1 1
  }
  Input {
   inputs 0
@@ -231,189 +228,7 @@ push $Ne8c71500
  Dot {
   name Dot1
   xpos 544
-  ypos 666
- }
-set Nef7e1880 [stack 0]
- Transform {
-  translate {{Trans_COPY1.translate} {Trans_COPY1.translate}}
-  rotate {{Trans_COPY1.rotate}}
-  scale {{Trans_COPY1.scale}}
-  skewX {{Trans_COPY1.skewX}}
-  skewY {{Trans_COPY1.skewY}}
-  skew_order {{Trans_COPY1.skew_order}}
-  center {{Trans_COPY1.center} {Trans_COPY1.center}}
-  invert_matrix {{Trans_COPY1.invert_matrix}}
-  filter {{Trans_COPY1.filter}}
-  motionblur {{Trans_COPY1.motionblur}}
-  shutter {{Trans_COPY1.shutter}}
-  shutteroffset centred
-  name t0
-  xpos 510
-  ypos 686
- }
-set Nef7e1500 [stack 0]
- Transform {
-  translate {{Trans_COPY1.translate} {Trans_COPY1.translate}}
-  rotate {{Trans_COPY1.rotate}}
-  scale {{Trans_COPY1.scale}}
-  skewX {{Trans_COPY1.skewX}}
-  skewY {{Trans_COPY1.skewY}}
-  skew_order {{Trans_COPY1.skew_order}}
-  center {{Trans_COPY1.center} {Trans_COPY1.center}}
-  invert_matrix {{Trans_COPY1.invert_matrix}}
-  filter {{Trans_COPY1.filter}}
-  motionblur {{Trans_COPY1.motionblur}}
-  shutter {{Trans_COPY1.shutter}}
-  shutteroffset centred
-  name t1
-  xpos 510
-  ypos 710
- }
-set Nef7e0e00 [stack 0]
- Transform {
-  translate {{Trans_COPY1.translate} {Trans_COPY1.translate}}
-  rotate {{Trans_COPY1.rotate}}
-  scale {{Trans_COPY1.scale}}
-  skewX {{Trans_COPY1.skewX}}
-  skewY {{Trans_COPY1.skewY}}
-  skew_order {{Trans_COPY1.skew_order}}
-  center {{Trans_COPY1.center} {Trans_COPY1.center}}
-  invert_matrix {{Trans_COPY1.invert_matrix}}
-  filter {{Trans_COPY1.filter}}
-  motionblur {{Trans_COPY1.motionblur}}
-  shutter {{Trans_COPY1.shutter}}
-  shutteroffset centred
-  name t2
-  xpos 510
-  ypos 734
- }
-set Nef7e0700 [stack 0]
- Transform {
-  translate {{Trans_COPY1.translate} {Trans_COPY1.translate}}
-  rotate {{Trans_COPY1.rotate}}
-  scale {{Trans_COPY1.scale}}
-  skewX {{Trans_COPY1.skewX}}
-  skewY {{Trans_COPY1.skewY}}
-  skew_order {{Trans_COPY1.skew_order}}
-  center {{Trans_COPY1.center} {Trans_COPY1.center}}
-  invert_matrix {{Trans_COPY1.invert_matrix}}
-  filter {{Trans_COPY1.filter}}
-  motionblur {{Trans_COPY1.motionblur}}
-  shutter {{Trans_COPY1.shutter}}
-  shutteroffset centred
-  name t3
-  xpos 510
-  ypos 758
- }
-set Nef7e0000 [stack 0]
- Transform {
-  translate {{Trans_COPY1.translate} {Trans_COPY1.translate}}
-  rotate {{Trans_COPY1.rotate}}
-  scale {{Trans_COPY1.scale}}
-  skewX {{Trans_COPY1.skewX}}
-  skewY {{Trans_COPY1.skewY}}
-  skew_order {{Trans_COPY1.skew_order}}
-  center {{Trans_COPY1.center} {Trans_COPY1.center}}
-  invert_matrix {{Trans_COPY1.invert_matrix}}
-  filter {{Trans_COPY1.filter}}
-  motionblur {{Trans_COPY1.motionblur}}
-  shutter {{Trans_COPY1.shutter}}
-  shutteroffset centred
-  name t4
-  xpos 510
-  ypos 782
- }
-set Ne7a99880 [stack 0]
- Transform {
-  translate {{Trans_COPY1.translate} {Trans_COPY1.translate}}
-  rotate {{Trans_COPY1.rotate}}
-  scale {{Trans_COPY1.scale}}
-  skewX {{Trans_COPY1.skewX}}
-  skewY {{Trans_COPY1.skewY}}
-  skew_order {{Trans_COPY1.skew_order}}
-  center {{Trans_COPY1.center} {Trans_COPY1.center}}
-  invert_matrix {{Trans_COPY1.invert_matrix}}
-  filter {{Trans_COPY1.filter}}
-  motionblur {{Trans_COPY1.motionblur}}
-  shutter {{Trans_COPY1.shutter}}
-  shutteroffset centred
-  name t5
-  xpos 510
-  ypos 830
- }
-set Ne7a99180 [stack 0]
- Transform {
-  translate {{Trans_COPY1.translate} {Trans_COPY1.translate}}
-  rotate {{Trans_COPY1.rotate}}
-  scale {{Trans_COPY1.scale}}
-  skewX {{Trans_COPY1.skewX}}
-  skewY {{Trans_COPY1.skewY}}
-  skew_order {{Trans_COPY1.skew_order}}
-  center {{Trans_COPY1.center} {Trans_COPY1.center}}
-  invert_matrix {{Trans_COPY1.invert_matrix}}
-  filter {{Trans_COPY1.filter}}
-  motionblur {{Trans_COPY1.motionblur}}
-  shutter {{Trans_COPY1.shutter}}
-  shutteroffset centred
-  name t6
-  xpos 510
-  ypos 854
- }
-push $Ne7a99180
-push $Ne7a99880
-push $Nef7e0000
-push $Nef7e0700
-push $Nef7e0e00
-push $Nef7e1500
-push $Nef7e1880
- Merge2 {
-  inputs 2
-  also_merge all
-  name m0
-  xpos 620
-  ypos 686
- }
- Merge2 {
-  inputs 2
-  also_merge all
-  name m1
-  xpos 620
-  ypos 710
- }
- Merge2 {
-  inputs 2
-  also_merge all
-  name m2
-  xpos 620
-  ypos 734
- }
- Merge2 {
-  inputs 2
-  also_merge all
-  name m3
-  xpos 620
-  ypos 758
- }
- Merge2 {
-  inputs 2
-  also_merge all
-  name m4
-  xpos 620
-  ypos 782
- }
- Merge2 {
-  inputs 2
-  also_merge all
-  name m5
-  xpos 620
-  ypos 830
- }
- Merge2 {
-  inputs 2
-  also_merge all
-  name m6
-  xpos 620
-  ypos 854
+  ypos 670
  }
  NoOp {
   name COPIES1_end
@@ -430,11 +245,6 @@ push $Nef7e1880
  }
 set Nef358700 [stack 0]
 push $Ne7a98380
- Dot {
-  name Dot3
-  xpos 104
-  ypos 90
- }
  Dot {
   name Dot4
   label static
