@@ -306,9 +306,12 @@ if kc.name() in ["copy1"]:
 
     o.setInput(0, i)')
 
-#####Code for PROXY_MAIN1 knobChanged
 
-Rep = nuke.toNode('GM_ShapeRepeater3')
+                                                           
+
+#####Code for PROXY_MAIN1
+
+Rep = nuke.toNode('GM_ShapeRepeater')
 
 Rep.begin()
 
@@ -361,10 +364,11 @@ if kc.name() in ["copy1"]:
                 CTrans.setInput(0, nDot)
                 nMerge.setInput(0, nDot)
             else:
-                CTrans.setInput(0, nPrevMerge)
+                CTrans.setInput(0, nPrevTrans)
                 nMerge.setInput(0, nPrevMerge)
         
             nPrevMerge = nMerge
+            nPrevTrans = CTrans
         
         MNum = int(iRepeats) - 1
         
@@ -378,6 +382,7 @@ if kc.name() in ["copy1"]:
 
 
 Rep.end()
+
 
 
 
