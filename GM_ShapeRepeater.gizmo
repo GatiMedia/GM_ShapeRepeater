@@ -1,7 +1,5 @@
 Group {
  name GM_ShapeRepeater
- xpos 3370
- ypos -130
  addUserKnob {20 User}
  addUserKnob {4 output l Output M {"Pattern Only" "Pattern Over Image"}}
  addUserKnob {26 shape l "<b>S H A P E"}
@@ -29,18 +27,18 @@ Group {
  addUserKnob {41 filter2 l filter T Trans_COPY1_proxy_2.filter2}
  addUserKnob {20 endGroup n -1}
  addUserKnob {26 rep1 l "<b>R E P E A T E R"}
- addUserKnob {41 copy1 l Copies1 T PROXY_MAIN1.copy1}
+ addUserKnob {41 copy1 l Copies T PROXY_MAIN1.copy1}
  addUserKnob {6 apply_on_copy1 l "Apply Transform on Original Shape" +STARTLINE}
  apply_on_copy1 true
- addUserKnob {41 translate1 T Trans_COPY1_proxy.translate1}
- addUserKnob {41 rotate1 T Trans_COPY1_proxy.rotate1}
- addUserKnob {41 scale1 T Trans_COPY1_proxy.scale1}
- addUserKnob {41 skewX1 T Trans_COPY1_proxy.skewX1}
- addUserKnob {41 skewY1 T Trans_COPY1_proxy.skewY1}
- addUserKnob {41 skeworder1 T Trans_COPY1_proxy.skeworder1}
+ addUserKnob {41 translate1 l translate T Trans_COPY1_proxy.translate1}
+ addUserKnob {41 rotate1 l rotate T Trans_COPY1_proxy.rotate1}
+ addUserKnob {41 scale1 l scale T Trans_COPY1_proxy.scale1}
+ addUserKnob {41 skewX1 l skewX T Trans_COPY1_proxy.skewX1}
+ addUserKnob {41 skewY1 l skewY T Trans_COPY1_proxy.skewY1}
+ addUserKnob {41 skeworder1 l "skew order" T Trans_COPY1_proxy.skeworder1}
  addUserKnob {41 center1 l center T Trans_COPY1_proxy.center1}
- addUserKnob {41 invert1 T Trans_COPY1_proxy.invert1}
- addUserKnob {41 filter1 T Trans_COPY1_proxy.filter1}
+ addUserKnob {41 invert1 l invert T Trans_COPY1_proxy.invert1}
+ addUserKnob {41 filter1 l filter T Trans_COPY1_proxy.filter1}
  addUserKnob {41 motionblur1 l motionblur T Trans_COPY1_proxy.motionblur1}
  addUserKnob {41 shutter1 l shutter T Trans_COPY1_proxy.shutter1}
  addUserKnob {26 ""}
@@ -106,7 +104,7 @@ Group {
   addUserKnob {12 center1}
   addUserKnob {6 invert1 +STARTLINE}
   addUserKnob {4 filter1 M {Impulse Cubic Keys Simon Rifman Mitchell Parzen Notsch Lanczos4 Lanczos6 Sinc4}}
-  filter1 Notsch
+  filter1 Cubic
   addUserKnob {7 motionblur1 R 0 4}
   motionblur1 1
   addUserKnob {7 shutter1 R 0 2}
