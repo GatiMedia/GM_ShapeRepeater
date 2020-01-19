@@ -1,5 +1,6 @@
 Group {
  name GM_ShapeRepeater
+ tile_color 0xd79900ff
  addUserKnob {20 User}
  addUserKnob {4 output l Output M {"Pattern Only" "Pattern Over Image"}}
  addUserKnob {26 shape l "<b>S H A P E"}
@@ -50,7 +51,7 @@ Group {
   name BackdropNode1
   tile_color 0xff
   label "<center><font color=red>DON`T TOUCH\nstatic"
-  note_font "Verdana Bold Bold Bold Bold Bold Bold"
+  note_font "Verdana Bold Bold Bold Bold Bold Bold Bold"
   note_font_size 42
   xpos 738
   ypos 63
@@ -134,7 +135,7 @@ Group {
   xpos 544
   ypos 90
  }
-set Ne7a98380 [stack 0]
+set Nd98cf880 [stack 0]
  Remove {
   name Remove
   label static
@@ -195,8 +196,8 @@ set Ne7a98380 [stack 0]
   xpos 510
   ypos 560
  }
-set Ne8c71500 [stack 0]
-push $Ne8c71500
+set Nd98ce380 [stack 0]
+push $Nd98ce380
  Transform {
   translate {{Trans_COPY1_proxy.translate1} {Trans_COPY1_proxy.translate1}}
   rotate {{Trans_COPY1_proxy.rotate1}}
@@ -225,8 +226,6 @@ push $Ne8c71500
  }
  Dot {
   name Dot1
-  xpos 544
-  ypos 670
  }
  NoOp {
   name COPIES1_end
@@ -241,8 +240,8 @@ push $Ne8c71500
   xpos 510
   ypos 2593
  }
-set Nef358700 [stack 0]
-push $Ne7a98380
+set Nd990d180 [stack 0]
+push $Nd98cf880
  Dot {
   name Dot4
   label static
@@ -256,7 +255,7 @@ push $Ne7a98380
   xpos 290
   ypos 2600
  }
-push $Nef358700
+push $Nd990d180
  Switch {
   inputs 2
   which {{output}}
